@@ -2,7 +2,7 @@
 
 functions.php 所有框架通用
 
-larveral.php larveral框架专用
+laravel.php laravel框架专用
 
 tp5.php thinkphp5.x框架专用
 
@@ -12,7 +12,7 @@ tp3.php thinkphp3.x框架专用
 
 如果你是tp5 则附加引入tp5.php
 
->注意:tp5/tp3/larveral不可同时引入,否则可能函数重名
+>注意:tp5/tp3/laravel不可同时引入,否则可能函数重名
 
 
 ```
