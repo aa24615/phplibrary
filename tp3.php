@@ -54,7 +54,6 @@ function get_find($table,$where="",$order="",$field="",$time=1800,$cache=true){
  * @param string $table 库名
  * @param string|array $where 条件
  * @param string $order 排序
- * @param string $field 字段
  * @param string $limit 条数
  * @param int $time 缓存时间
  * @param string $cache 缓存名称
