@@ -9,6 +9,41 @@
 // +-------------------------------------------------------------------------
 
 
+if (!function_exists('get_rand_array')) {
+    /**
+     * 随机数组中某个值
+     * @param array $array 数组
+     * @param array $key key
+     * @return array|string
+     */
+    function get_rand_array($array,$key=''){
+        $len = count($array);
+        $data = $array[rand(0,$len-1)];
+        return $key ? $data[$key] : $data;
+    }
+}
+
+
+
+if (!function_exists('get_rand_phone')) {
+    /**
+     * 随机生成手机号
+     * @return int
+     */
+    function get_rand_phone(){
+        $prefix = [
+            //移动段
+            134,135,136,137,138,139,147,148,150,151,152,157,158,159,165,172,178,182,183,184,187,188,198,
+            //联通段
+            130,131,132,145,146,155,156,166,171,175,176,185,186,
+            //电信段
+            133,149,153,173,174,177,180,181,189,191,199,
+        ];
+        return $prefix[rand(0,count($prefix)-1)].rand(10000000,99999999);
+    }
+}
+
+
 if (!function_exists('pr')) {
     /**
      * 打印数组
