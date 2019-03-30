@@ -70,7 +70,9 @@ if (!function_exists('get_dirs')) {
                         if(is_dir($filename)){
                             $list = array_merge($list,get_dirs($filename,$suffixs));
                         }else{
-                            list($name,$ext)=explode(".",$file);//获取扩展名
+
+                            $exts=explode(".",$file);//获取扩展名
+                            $ext = end($exts);
                             if($suffixs){
                                 if(is_array($suffixs)){
                                     if(in_array($ext,$suffixs)){
