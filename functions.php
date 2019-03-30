@@ -64,15 +64,15 @@ if (!function_exists('get_dirs')) {
                 $list = [];
                 while (($file = readdir($dh)) !== false){
                     if($file!="." && $file!=".."){
-
                         $filename = $dir.'/'.$file;
                         $is=false;
                         if(is_dir($filename)){
                             $list = array_merge($list,get_dirs($filename,$suffixs));
                         }else{
 
-                            $exts=explode(".",$file);//获取扩展名
-                            $ext = end($exts);
+                            $info=pathinfo($file);
+                            $ext = $info['extension'];
+                            $name = $info['filename'];
                             if($suffixs){
                                 if(is_array($suffixs)){
                                     if(in_array($ext,$suffixs)){
