@@ -10,6 +10,19 @@
 // +-------------------------------------------------------------------------
 
 
+if (!function_exists('get_url')) {
+    /**
+     * 带域名的url
+     * @param array $url
+     * @param array $key key
+     * @return array|string
+     */
+    function get_url($url,$vars='',$suffix=true){
+        $host = 'http://'.$_SERVER['HTTP_HOST'];
+        return $host.url($url,$vars,$suffix);
+    }
+}
+
 /**
  * TP5统计
  * @param string $table 库名
