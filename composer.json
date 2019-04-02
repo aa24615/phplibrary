@@ -14,10 +14,16 @@
 	"autoload": {
         "psr-4": {
           "php127\\": "./src"
-        }
+        },
+        "files": [
+            "src/functions.php",
+            "src/laravel/laravel.php",
+            "src/thinkphp/tp3.php",
+            "src/thinkphp/tp5.php"
+        ]
     },
     "require": {
         "php": ">=7.0"
     },
-    "minimum-stability":"dev"
+    "minimum-stability":"dev-m"
 }
