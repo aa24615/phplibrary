@@ -26,7 +26,6 @@ if (!function_exists('get_rand_array')) {
 
 
 
-if (!function_exists('get_rand_phone')) {
     /**
      * 随机生成手机号
      * @return int
@@ -42,7 +41,7 @@ if (!function_exists('get_rand_phone')) {
         ];
         return $prefix[rand(0,count($prefix)-1)].rand(10000000,99999999);
     }
-}
+
 
 
 if (!function_exists('pr')) {
