@@ -30,7 +30,7 @@ require 'vendor/autoload.php';
 
 ```php
 <?php
-use php127\library;
+
 require 'vendor/autoload.php';
 
 //生成随机手机号
@@ -43,11 +43,39 @@ pr($arr);
 //生成无限级目录树
 mkdirs('src/library');
 
-//更多请浏览手册
 ?>
 ```
 
-## 详细文档请迁步
+## 如果在thinkphp或laravel使用框架特有的函数,需要使用命名空间
+```
+<?php
+use function php127\thinkphp\tp5\get_count;
+use function php127\thinkphp\tp5\get_list;
+
+require 'vendor/autoload.php';
+
+//获取数据表总行数
+echo get_count('user');
+
+//你可以指定条件
+echo get_count('user','type=1');
+echo get_count('user',['type'=>1]);
+
+//获取用户总积分
+echo get_count('user','type=1','score');
+
+//获取用户前10条
+$user = get_list('user','',10);
+//根据某个条件
+$user = get_list('user','type=1',10);
+//或者积分最高
+$user = get_list('user','type=1',10,'score desc');
+
+//更多请移步详细函数列表
+
+?>
+```
+## 详细函数列表请迁步
 
 - [函数手册](http://library.php127.com/)
 - [我的博客](http://blog.php127.com/)

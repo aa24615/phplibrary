@@ -1,5 +1,5 @@
 <?php
-use php127\library;
+
 require 'vendor/autoload.php';
 
 //生成随机手机号
@@ -12,5 +12,6 @@ pr($arr);
 //生成无限级目录树
 mkdirs('src/library');
 
-//更多请浏览手册
+//更多请浏览手册 http://library.php127.com
+
 ?>

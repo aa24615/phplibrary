@@ -9,5 +9,5 @@ namespace php127\laravel;
 // +-------------------------------------------------------------------------
 
 function test(){
-    echo 123;
+    echo 'hello laravel';
 }
