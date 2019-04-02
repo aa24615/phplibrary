@@ -1,0 +1,17 @@
+{
+    "name": "php127/phplibrary",
+    "description": "php常用函数库",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "读心印",
+            "email": "839024615@qq.com"
+        }
+    ],
+	"autoload": {
+        "psr-4": {"php127\\": "./src"}
+    }
+    "minimum-stability": "dev",
+    "require": {}
+}
