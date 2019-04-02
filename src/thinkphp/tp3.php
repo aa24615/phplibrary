@@ -21,7 +21,7 @@ namespace php127\thinkphp\tp3;
  * @param string $cache 缓存名称
  * @return int
  */
-function get_count($table,$where="",$field="",$time=1800,$cache=true){
+function tp3_count($table,$where="",$field="",$time=1800,$cache=true){
     $db   = M($table);
     $time = $time ? : C('DATA_CACHE_TIME');
     if($field){
@@ -43,7 +43,7 @@ function get_count($table,$where="",$field="",$time=1800,$cache=true){
  * @param string $cache 缓存名称
  * @return array|string
  */
-function get_find($table,$where="",$order="",$field="",$time=1800,$cache=true){
+function tp3_find($table,$where="",$order="",$field="",$time=1800,$cache=true){
     $time = $time ? : C('DATA_CACHE_TIME');
     $F=M($table)->cache($cache,$time)->where($where)->order($order)->field($field)->find();
     $c=$field ? $F[$field] : $F;
@@ -61,7 +61,7 @@ function get_find($table,$where="",$order="",$field="",$time=1800,$cache=true){
  * @param string $cache 缓存名称
  * @return array
  */
-function get_list($table,$where='',$order='',$limit="",$time=1800,$cache=true){
+function tp3_list($table,$where='',$order='',$limit="",$time=1800,$cache=true){
     $time = $time ? : C('DATA_CACHE_TIME');
     $list=M($table)->cache($cache,$time)->where($where)->order($order)->limit($limit)->select();
     return $list;

@@ -16,7 +16,7 @@ namespace php127\thinkphp\tp5;
  * @param array $key key
  * @return array|string
  */
-function get_url($url, $vars = '', $suffix = true)
+function tp5_url($url, $vars = '', $suffix = true)
 {
     $host = 'http://' . $_SERVER['HTTP_HOST'];
     return $host . url($url, $vars, $suffix);
@@ -31,7 +31,7 @@ function get_url($url, $vars = '', $suffix = true)
  * @param string $cache 缓存名称
  * @return int
  */
-function get_count($table, $where = "", $field = "")
+function tp5_count($table, $where = "", $field = "")
 {
     $db = db($table);
     if ($field) {
@@ -51,7 +51,7 @@ function get_count($table, $where = "", $field = "")
  * @param string $limit 条数
  * @return array
  */
-function get_list($table, $where = "", $limit = 10, $order = "")
+function tp5_list($table, $where = "", $limit = 10, $order = "")
 {
     $db = db($table);
     return $db->where($where)->limit($limit)->order($order)->select();
@@ -65,7 +65,7 @@ function get_list($table, $where = "", $limit = 10, $order = "")
  * @param string $field 字段
  * @return array|string
  */
-function get_find($table, $where = "", $field = "", $order = "")
+function tp5_find($table, $where = "", $field = "", $order = "")
 {
     $db = db($table);
     $F = $db->where($where)->order($order)->find();

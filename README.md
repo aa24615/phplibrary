@@ -46,35 +46,34 @@ mkdirs('src/library');
 ?>
 ```
 
-## 如果在thinkphp或laravel使用框架特有的函数,需要使用命名空间
+## 如果在thinkphp或laravel使用框架特有的函数
 ```
 <?php
-use function php127\thinkphp\tp5\get_count;
-use function php127\thinkphp\tp5\get_list;
 
 require 'vendor/autoload.php';
 
 //获取数据表总行数
-echo get_count('user');
+echo tp5_count('user');
 
 //你可以指定条件
-echo get_count('user','type=1');
-echo get_count('user',['type'=>1]);
+echo tp5_count('user','type=1');
+echo tp5_count('user',['type'=>1]);
 
 //获取用户总积分
-echo get_count('user','type=1','score');
+echo tp5_count('user','type=1','score');
 
 //获取用户前10条
-$user = get_list('user','',10);
+$user = tp5_list('user','',10);
 //根据某个条件
-$user = get_list('user','type=1',10);
+$user = tp5_list('user','type=1',10);
 //或者积分最高
-$user = get_list('user','type=1',10,'score desc');
+$user = tp5_list('user','type=1',10,'score desc');
 
 //更多请移步详细函数列表
 
 ?>
 ```
+
 ## 详细函数列表请迁步
 
 - [函数手册](http://library.php127.com/)
