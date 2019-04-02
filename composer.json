@@ -12,6 +12,5 @@
 	"autoload": {
         "psr-4": {"php127\\": "./src"}
     },
-    "minimum-stability": "dev",
     "require": {}
 }
