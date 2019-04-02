@@ -10,18 +10,18 @@ namespace php127\thinkphp\tp5;
 // +-------------------------------------------------------------------------
 
 
-if (!function_exists('get_url')) {
-    /**
-     * 带域名的url
-     * @param array $url
-     * @param array $key key
-     * @return array|string
-     */
-    function get_url($url,$vars='',$suffix=true){
-        $host = 'http://'.$_SERVER['HTTP_HOST'];
-        return $host.url($url,$vars,$suffix);
-    }
+/**
+ * 带域名的url
+ * @param array $url
+ * @param array $key key
+ * @return array|string
+ */
+function get_url($url, $vars = '', $suffix = true)
+{
+    $host = 'http://' . $_SERVER['HTTP_HOST'];
+    return $host . url($url, $vars, $suffix);
 }
+
 
 /**
  * TP5统计
@@ -31,12 +31,13 @@ if (!function_exists('get_url')) {
  * @param string $cache 缓存名称
  * @return int
  */
-function get_count($table, $where = "", $field = "") {
-    $db = db ( $table );
+function get_count($table, $where = "", $field = "")
+{
+    $db = db($table);
     if ($field) {
-        $count = $db->where ( $where )->sum ( $field );
+        $count = $db->where($where)->sum($field);
     } else {
-        $count = $db->where ( $where )->count ();
+        $count = $db->where($where)->count();
     }
     return $count ? $count : 0;
 }
@@ -50,8 +51,9 @@ function get_count($table, $where = "", $field = "") {
  * @param string $limit 条数
  * @return array
  */
-function get_list($table,$where="",$limit=10,$order=""){
-    $db = db ( $table );
+function get_list($table, $where = "", $limit = 10, $order = "")
+{
+    $db = db($table);
     return $db->where($where)->limit($limit)->order($order)->select();
 }
 
@@ -63,12 +65,13 @@ function get_list($table,$where="",$limit=10,$order=""){
  * @param string $field 字段
  * @return array|string
  */
-function get_find($table,$where="",$field="",$order=""){
-    $db = db ( $table );
+function get_find($table, $where = "", $field = "", $order = "")
+{
+    $db = db($table);
     $F = $db->where($where)->order($order)->find();
-    if($field){
+    if ($field) {
         return $F[$field];
-    }else{
+    } else {
         return $F;
     }
 }
