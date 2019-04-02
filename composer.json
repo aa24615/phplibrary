@@ -17,6 +17,9 @@
         },
         "files": [
             "src/functions.php",
+            "src/get.php",
+            "src/io.php",
+            "src/rand.php",
             "src/laravel/laravel.php",
             "src/thinkphp/tp3.php",
             "src/thinkphp/tp5.php"
