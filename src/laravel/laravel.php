@@ -25,7 +25,7 @@ function la_test(){
  */
 function la_count($table, $where = [], $field = "",$key='',$time=86400){
 
-    $key = $key ? : la_key('la_count',$table, $where , $field);
+    $key = $key ? : 'la_count'.la_key($table, $where , $field);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time,function () use($table, $where, $field){
 
         $db = \Illuminate\Support\Facades\DB::table($table);
@@ -38,7 +38,6 @@ function la_count($table, $where = [], $field = "",$key='',$time=86400){
     });
     return $data ? $data : 0;
 }
-
 /**
  * laravel取单页列表
  * @param string $table 库名
@@ -50,11 +49,16 @@ function la_count($table, $where = [], $field = "",$key='',$time=86400){
  * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_list($table, $where = [], $limit = 10,$field='*',$order = "",$key='',$time=86400){
-    $key = $key ? : la_key('la_list',$table,$where,$limit,$field,$order);
+function la_list2($table, $where = [], $limit = 10,$field='*',$order = '',$key='',$time=86400){
+    $key = $key ? : 'la_list'.la_key($table,$where,$limit,$field,$order);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$limit,$order,$field){
         $db = \Illuminate\Support\Facades\DB::table($table);
-        return $db->where($where)->limit($limit)->select($field)->orderByRaw($order)->get();
+        if($order){
+            return $db->where($where)->limit($limit)->select($field)->orderByRaw($order)->get();
+        }else{
+            return $db->where($where)->limit($limit)->select($field)->get();
+        }
+
     });
     return $data;
 }
@@ -71,13 +75,16 @@ function la_list($table, $where = [], $limit = 10,$field='*',$order = "",$key=''
  */
 function la_find($table, $where = [], $field = "", $order = "",$key='',$time=86400){
 
-    $key = $key ? : la_key('la_find',$table,$where,$field,$order);
+    $key = $key ? : 'la_find'.la_key($table,$where,$field,$order);
 
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$order,$field) {
 
         $db = \Illuminate\Support\Facades\DB::table($table);
-        return $db->where($where)->orderByRaw($order)->first();
-
+        if($order){
+            return $db->where($where)->orderByRaw($order)->first();
+        }else{
+            return $db->where($where)->first();
+        }
     });
     if ($field) {
         return $data[$field];
