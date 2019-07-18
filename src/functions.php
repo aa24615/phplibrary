@@ -230,6 +230,7 @@ function get_qtime($time, $format = "Y-m-d")
  */
 function get_sizes($size)
 {
+    $f = "";
     $prec = 3;
     if ($size < 0) {
         $f = "-";
