@@ -26,7 +26,8 @@
         ]
     },
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "php127/phplibrary": "dev-master"
     },
     "minimum-stability":"dev"
 }

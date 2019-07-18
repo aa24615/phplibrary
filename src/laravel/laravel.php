@@ -17,13 +17,13 @@ function la_test(){
 /**
  * laravel统计
  * @param string $table 库名
- * @param string|array $where 条件
+ * @param array $where 条件
  * @param string $field 字段(传入则统计字段总和)
  * @param string $key 缓存名称(不传自动生成)
  * @param int $time 缓存时间(默认86400秒)
  * @return int
  */
-function la_count($table, $where = "", $field = "",$key='',$time=86400){
+function la_count($table, $where = [], $field = "",$key='',$time=86400){
 
     $key = $key ? : la_key('la_count',$table, $where , $field);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time,function () use($table, $where, $field){
@@ -34,6 +34,7 @@ function la_count($table, $where = "", $field = "",$key='',$time=86400){
         } else {
             $data = $db->where($where)->count();
         }
+        return $data;
     });
     return $data ? $data : 0;
 }
@@ -41,7 +42,7 @@ function la_count($table, $where = "", $field = "",$key='',$time=86400){
 /**
  * laravel取单页列表
  * @param string $table 库名
- * @param string|array $where 条件
+ * @param array $where 条件
  * @param string $order 排序
  * @param string $field 字段
  * @param string $limit 条数
@@ -49,7 +50,7 @@ function la_count($table, $where = "", $field = "",$key='',$time=86400){
  * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_list($table, $where = "", $limit = 10,$field='*',$order = "",$key='',$time=86400){
+function la_list($table, $where = [], $limit = 10,$field='*',$order = "",$key='',$time=86400){
     $key = $key ? : la_key('la_list',$table,$where,$limit,$field,$order);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$limit,$order,$field){
         $db = \Illuminate\Support\Facades\DB::table($table);
@@ -61,14 +62,14 @@ function la_list($table, $where = "", $limit = 10,$field='*',$order = "",$key=''
 /**
  * laravel取单条内容
  * @param string $table 库名
- * @param string|array $where 条件
+ * @param array $where 条件
  * @param string $order 排序
  * @param string $field 字段
  * @param string $key 缓存名称(不传自动生成)
  * @param int $time 缓存时间(默认86400秒)
  * @return array|string
  */
-function la_find($table, $where = "", $field = "", $order = "",$key='',$time=86400){
+function la_find($table, $where = [], $field = "", $order = "",$key='',$time=86400){
 
     $key = $key ? : la_key('la_find',$table,$where,$field,$order);
 
