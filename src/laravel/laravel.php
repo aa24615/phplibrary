@@ -25,7 +25,7 @@ function la_test(){
  */
 function la_count($table, $where = [], $field = "",$key='',$time=86400){
 
-    $key = $key ? : 'la_count'.la_key($table, $where , $field);
+    $key = $key ? : 'la_count_'.la_key($table, $where , $field);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time,function () use($table, $where, $field){
 
         $db = \Illuminate\Support\Facades\DB::table($table);
@@ -38,19 +38,20 @@ function la_count($table, $where = [], $field = "",$key='',$time=86400){
     });
     return $data ? $data : 0;
 }
+
 /**
  * laravel取单页列表
  * @param string $table 库名
  * @param array $where 条件
  * @param string $order 排序
- * @param string $field 字段
+ * @param string|array $field 字段
  * @param string $limit 条数
  * @param string $key 缓存名称(不传自动生成)
  * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_list($table, $where = [], $limit = 10,$field='*',$order = '',$key='',$time=86400){
-    $key = $key ? : 'la_list'.la_key($table,$where,$limit,$field,$order);
+function la_list($table, $where = [], $field='*',$order = '',$limit = 10,$key='',$time=86400){
+    $key = $key ? : 'la_list_'.la_key($table,$where,$limit,$field,$order);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$limit,$order,$field){
         $db = \Illuminate\Support\Facades\DB::table($table);
         if($order){
@@ -68,29 +69,26 @@ function la_list($table, $where = [], $limit = 10,$field='*',$order = '',$key=''
  * @param string $table 库名
  * @param array $where 条件
  * @param string $order 排序
- * @param string $field 字段
+ * @param string|array $field 字段
  * @param string $key 缓存名称(不传自动生成)
  * @param int $time 缓存时间(默认86400秒)
- * @return array|string
+ * @return array
  */
-function la_find($table, $where = [], $field = "", $order = "",$key='',$time=86400){
+function la_find($table, $where = [], $field = "*", $order = "",$key='',$time=86400){
 
-    $key = $key ? : 'la_find'.la_key($table,$where,$field,$order);
+    $key = $key ? : 'la_find_'.la_key($table,$where,$field,$order);
 
-    $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$order,$field) {
+    $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$field,$order) {
 
         $db = \Illuminate\Support\Facades\DB::table($table);
         if($order){
-            return $db->where($where)->orderByRaw($order)->first();
+            return $db->where($where)->select($field)->orderByRaw($order)->first();
         }else{
-            return $db->where($where)->first();
+            return $db->where($where)->select($field)->first();
         }
     });
-    if ($field) {
-        return $data[$field];
-    } else {
-        return $data;
-    }
+
+    return $data;
 }
 
 /**
@@ -104,5 +102,5 @@ function la_key(...$data){
         $key[] = (string)json_encode($v);
     }
     $key = join(',',$key);
-    return 'la_'.md5($key);
+    return md5($key);
 }
