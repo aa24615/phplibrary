@@ -49,7 +49,7 @@ function la_count($table, $where = [], $field = "",$key='',$time=86400){
  * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_list2($table, $where = [], $limit = 10,$field='*',$order = '',$key='',$time=86400){
+function la_list($table, $where = [], $limit = 10,$field='*',$order = '',$key='',$time=86400){
     $key = $key ? : 'la_list'.la_key($table,$where,$limit,$field,$order);
     $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$limit,$order,$field){
         $db = \Illuminate\Support\Facades\DB::table($table);
