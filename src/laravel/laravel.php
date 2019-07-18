@@ -3,7 +3,7 @@ namespace php127\laravel;
 // +-------------------------------------------------------------------------
 // | laravel常用函数库
 // +-------------------------------------------------------------------------
-// | Copyright (c) 20011~2019 http://blog.php127.com All rights reserved.
+// | Copyright (c) 2011~2019 http://blog.php127.com All rights reserved.
 // +-------------------------------------------------------------------------
 // | Author: 读心印 <xz615@139.com>
 // +-------------------------------------------------------------------------
@@ -19,20 +19,23 @@ function la_test(){
  * @param string $table 库名
  * @param string|array $where 条件
  * @param string $field 字段(传入则统计字段总和)
- * @param string $cache 缓存名称
+ * @param string $key 缓存名称(不传自动生成)
+ * @param int $time 缓存时间(默认86400秒)
  * @return int
  */
 function la_count($table, $where = "", $field = "",$key='',$time=86400){
 
-    if()
-    Cache::get('key');
-    $db = Illuminate\Support\Facades\DB::table($table);
-    if ($field) {
-        $count = $db->where($where)->sum($field);
-    } else {
-        $count = $db->where($where)->count();
-    }
-    return $count ? $count : 0;
+    $key = $key ? : la_key('la_count',$table, $where , $field);
+    $data = \Illuminate\Support\Facades\Cache::remember($key,$time,function () use($table, $where, $field){
+
+        $db = \Illuminate\Support\Facades\DB::table($table);
+        if ($field) {
+            $data = $db->where($where)->sum($field);
+        } else {
+            $data = $db->where($where)->count();
+        }
+    });
+    return $data ? $data : 0;
 }
 
 /**
@@ -42,11 +45,17 @@ function la_count($table, $where = "", $field = "",$key='',$time=86400){
  * @param string $order 排序
  * @param string $field 字段
  * @param string $limit 条数
+ * @param string $key 缓存名称(不传自动生成)
+ * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_list($table, $where = "", $limit = 10, $order = "",$key='',$time=86400){
-    $db = Illuminate\Support\Facades\DB::table($table);
-    return $db->where($where)->limit($limit)->orderByRaw($order)->get();
+function la_list($table, $where = "", $limit = 10,$field='*',$order = "",$key='',$time=86400){
+    $key = $key ? : la_key('la_list',$table,$where,$limit,$field,$order);
+    $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$limit,$order,$field){
+        $db = \Illuminate\Support\Facades\DB::table($table);
+        return $db->where($where)->limit($limit)->select($field)->orderByRaw($order)->get();
+    });
+    return $data;
 }
 
 /**
@@ -55,25 +64,31 @@ function la_list($table, $where = "", $limit = 10, $order = "",$key='',$time=864
  * @param string|array $where 条件
  * @param string $order 排序
  * @param string $field 字段
+ * @param string $key 缓存名称(不传自动生成)
+ * @param int $time 缓存时间(默认86400秒)
  * @return array|string
  */
 function la_find($table, $where = "", $field = "", $order = "",$key='',$time=86400){
-    $db = Illuminate\Support\Facades\DB::table($table);
-    $F = $db->where($where)->orderByRaw($order)->first();
+
+    $key = $key ? : la_key('la_find',$table,$where,$field,$order);
+
+    $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$order,$field) {
+
+        $db = \Illuminate\Support\Facades\DB::table($table);
+        return $db->where($where)->orderByRaw($order)->first();
+
+    });
     if ($field) {
-        return $F[$field];
+        return $data[$field];
     } else {
-        return $F;
+        return $data;
     }
 }
 
 /**
- * laravel缓存key
- * @param string $table 库名
- * @param string|array $where 条件
- * @param string $order 排序
- * @param string $field 字段
- * @return array|string
+ * laravel生成缓存key
+ * @param string|array $data 参数可多个
+ * @return string
  */
 function la_key(...$data){
     $key = [];
