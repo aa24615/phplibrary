@@ -10,7 +10,7 @@
 
 1. 【新增】laravel统计函数
 2. 【新增】laravel列表函数
-3. 【优化】laravel单条查询函数
+3. 【新增】laravel单条查询函数
 
 
 
