@@ -5,7 +5,7 @@
 function mkdirs($dir)
 {
     $arr = explode('/', $dir);
-    $p = '';
+    $p = $dir{0}=='/' ? '/' : '';
     foreach ($arr as $v) {
         $v = trim($v);
         if ($v) {
