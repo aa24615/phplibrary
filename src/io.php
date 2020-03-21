@@ -2,18 +2,11 @@
 
 
 //生成目录树
-function mkdirs($dir)
+function mkdirs($dir, $mode = 0777)
 {
-    $arr = explode('/', $dir);
-    $p = substr($dir,0,1)=='/' ? '/' : '';
-    foreach ($arr as $v) {
-        $v = trim($v);
-        if ($v) {
-            $p .= $v . "/";
-            if (!file_exists($p)) {
-                mkdir($p, 0777, true);
-            }
-        }
+    if (!is_dir($dir)) {
+        mkdirs(dirname($dir), $mode);
+        return mkdir($dir, $mode);
     }
     return true;
 }
