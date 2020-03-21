@@ -9,6 +9,10 @@ function mkdirs($dir, $mode = 0777)
         return mkdir($dir, $mode);
     }
     return true;
+
+
+
+
 }
 
 /**
