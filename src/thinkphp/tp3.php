@@ -20,15 +20,16 @@
  * @param string $cache 缓存名称
  * @return int
  */
-function tp3_count($table,$where="",$field="",$time=1800,$cache=true){
-    $db   = M($table);
-    $time = $time ? : C('DATA_CACHE_TIME');
-    if($field){
-        $count = $db->cache($cache,$time)->where($where)->sum($field);
-    }else{
-        $count = $db->cache($cache,$time)->where($where)->count();
+function tp3_count($table, $where = "", $field = "", $time = 1800, $cache = true)
+{
+    $db = M($table);
+    $time = $time ?: C('DATA_CACHE_TIME');
+    if ($field) {
+        $count = $db->cache($cache, $time)->where($where)->sum($field);
+    } else {
+        $count = $db->cache($cache, $time)->where($where)->count();
     }
-    return $count ? : 0;
+    return $count ?: 0;
 }
 
 
@@ -42,11 +43,12 @@ function tp3_count($table,$where="",$field="",$time=1800,$cache=true){
  * @param string $cache 缓存名称
  * @return array|string
  */
-function tp3_find($table,$where="",$order="",$field="",$time=1800,$cache=true){
-    $time = $time ? : C('DATA_CACHE_TIME');
-    $F=M($table)->cache($cache,$time)->where($where)->order($order)->field($field)->find();
-    $c=$field ? $F[$field] : $F;
-    return $c ? : false;
+function tp3_find($table, $where = "", $order = "", $field = "", $time = 1800, $cache = true)
+{
+    $time = $time ?: C('DATA_CACHE_TIME');
+    $F = M($table)->cache($cache, $time)->where($where)->order($order)->field($field)->find();
+    $c = $field ? $F[$field] : $F;
+    return $c ?: false;
 }
 
 
@@ -60,8 +62,9 @@ function tp3_find($table,$where="",$order="",$field="",$time=1800,$cache=true){
  * @param string $cache 缓存名称
  * @return array
  */
-function tp3_list($table,$where='',$order='',$limit="",$time=1800,$cache=true){
-    $time = $time ? : C('DATA_CACHE_TIME');
-    $list=M($table)->cache($cache,$time)->where($where)->order($order)->limit($limit)->select();
+function tp3_list($table, $where = '', $order = '', $limit = "", $time = 1800, $cache = true)
+{
+    $time = $time ?: C('DATA_CACHE_TIME');
+    $list = M($table)->cache($cache, $time)->where($where)->order($order)->limit($limit)->select();
     return $list;
 }

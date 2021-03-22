@@ -1,4 +1,5 @@
 <?php
+
 // +-------------------------------------------------------------------------
 // | laravel常用函数库
 // +-------------------------------------------------------------------------
@@ -7,7 +8,8 @@
 // | Author: 读心印 <xz615@139.com>
 // +-------------------------------------------------------------------------
 
-function la_test(){
+function la_test()
+{
     echo 'hello laravel';
 }
 
@@ -22,11 +24,10 @@ function la_test(){
  * @param int $time 缓存时间(默认86400秒)
  * @return int
  */
-function la_count($table, $where = [], $field = "",$key='',$time=86400){
-
-    $key = $key ? : 'la_count_'.la_key($table, $where , $field);
-    $data = \Illuminate\Support\Facades\Cache::remember($key,$time,function () use($table, $where, $field){
-
+function la_count($table, $where = [], $field = "", $key = '', $time = 86400)
+{
+    $key = $key ?: 'la_count_'.la_key($table, $where, $field);
+    $data = \Illuminate\Support\Facades\Cache::remember($key, $time, function () use ($table, $where, $field) {
         $db = \Illuminate\Support\Facades\DB::table($table);
         if ($field) {
             $data = $db->where($where)->sum($field);
@@ -49,16 +50,16 @@ function la_count($table, $where = [], $field = "",$key='',$time=86400){
  * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_list($table, $where = [], $field='*',$order = '',$limit = 10,$key='',$time=86400){
-    $key = $key ? : 'la_list_'.la_key($table,$where,$limit,$field,$order);
-    $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$limit,$order,$field){
+function la_list($table, $where = [], $field = '*', $order = '', $limit = 10, $key = '', $time = 86400)
+{
+    $key = $key ?: 'la_list_'.la_key($table, $where, $limit, $field, $order);
+    $data = \Illuminate\Support\Facades\Cache::remember($key, $time, function () use ($table, $where, $limit, $order, $field) {
         $db = \Illuminate\Support\Facades\DB::table($table);
-        if($order){
+        if ($order) {
             return $db->where($where)->limit($limit)->select($field)->orderByRaw($order)->get();
-        }else{
+        } else {
             return $db->where($where)->limit($limit)->select($field)->get();
         }
-
     });
     return $data;
 }
@@ -73,16 +74,15 @@ function la_list($table, $where = [], $field='*',$order = '',$limit = 10,$key=''
  * @param int $time 缓存时间(默认86400秒)
  * @return array
  */
-function la_find($table, $where = [], $field = "*", $order = "",$key='',$time=86400){
+function la_find($table, $where = [], $field = "*", $order = "", $key = '', $time = 86400)
+{
+    $key = $key ?: 'la_find_'.la_key($table, $where, $field, $order);
 
-    $key = $key ? : 'la_find_'.la_key($table,$where,$field,$order);
-
-    $data = \Illuminate\Support\Facades\Cache::remember($key,$time, function () use ($table,$where,$field,$order) {
-
+    $data = \Illuminate\Support\Facades\Cache::remember($key, $time, function () use ($table, $where, $field, $order) {
         $db = \Illuminate\Support\Facades\DB::table($table);
-        if($order){
+        if ($order) {
             return $db->where($where)->select($field)->orderByRaw($order)->first();
-        }else{
+        } else {
             return $db->where($where)->select($field)->first();
         }
     });
@@ -95,11 +95,12 @@ function la_find($table, $where = [], $field = "*", $order = "",$key='',$time=86
  * @param string|array $data 参数可多个
  * @return string
  */
-function la_key(...$data){
+function la_key(...$data)
+{
     $key = [];
-    foreach ($data as $v){
+    foreach ($data as $v) {
         $key[] = (string)json_encode($v);
     }
-    $key = join(',',$key);
+    $key = join(',', $key);
     return md5($key);
 }

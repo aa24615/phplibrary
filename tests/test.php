@@ -14,6 +14,4 @@ require '../vendor/autoload.php';
 
 //更多请浏览手册 http://library.php127.com
 
-la_key('1','4','5');
-
-?>
+la_key('1', '4', '5');

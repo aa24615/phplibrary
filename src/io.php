@@ -9,10 +9,6 @@ function mkdirs($dir, $mode = 0777)
         return mkdir($dir, $mode);
     }
     return true;
-
-
-
-
 }
 
 /**
@@ -23,10 +19,12 @@ function mkdirs($dir, $mode = 0777)
  */
 function rmdirs($dirname, $withself = true)
 {
-    if (!is_dir($dirname))
+    if (!is_dir($dirname)) {
         return false;
+    }
     $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($dirname, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST
+        new RecursiveDirectoryIterator($dirname, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::CHILD_FIRST
     );
 
     foreach ($files as $fileinfo) {
@@ -52,7 +50,9 @@ function copydirs($source, $dest)
     }
     foreach (
         $iterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST) as $item
+            new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::SELF_FIRST
+        ) as $item
     ) {
         if ($item->isDir()) {
             $sontDir = $dest . '/' . $iterator->getSubPathName();
@@ -84,7 +84,6 @@ function get_dirs($dir = "", $suffixs = [])
                     if (is_dir($filename)) {
                         $list = array_merge($list, get_dirs($filename, $suffixs));
                     } else {
-
                         $info = pathinfo($file);
                         $ext = $info['extension'];
                         $name = $info['filename'];

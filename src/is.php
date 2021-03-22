@@ -50,9 +50,9 @@ function is_valid_phone($phone)
  * @param string $time 时间戳
  * @return int
  */
-function is_today($time=false)
+function is_today($time = false)
 {
-    $time = $time ? : time();
+    $time = $time ?: time();
     $today = strtotime(date('Y-m-d') . ' 00:00:00');
     if ($time > $today) {
         return true;
