@@ -26,8 +26,11 @@
         ]
     },
     "require": {
-        "php": ">=7.0",
-        "php127/phplibrary": "dev-master"
+        "php": ">=7.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^2.18"
     },
     "minimum-stability":"dev"
 }

@@ -1,20 +1,10 @@
 
 
 # php常用函数库
+
 常用的函数 包含tp5 tp3 laravel 等框架函数
 
-
-## 更新日志
-
-###  **V1.0.7** `2019.07.18`
-
-1. 【新增】laravel统计函数
-2. 【新增】laravel列表函数
-3. 【新增】laravel单条查询函数
-
-
-
-## php版本
+## 要求
 
 ```
 PHP >= 7.0
@@ -25,11 +15,6 @@ PHP >= 7.0
 $ composer require php127/phplibrary
 ```
 
-## 更新
-
-```shell
-$ composer update php127/phplibrary
-```
 
 ## 使用
 
@@ -105,13 +90,16 @@ $user = tp5_list('user','type=1',10,'score desc');
 ## 详细函数列表请迁步
 
 - [函数手册](http://library.php127.com/)
-- [我的博客](http://blog.php127.com/)
 
-## 联系我们
 
-- QQ群: [324098841](http://shang.qq.com/wpa/qunwpa?idkey=6f5462146888da75feaaa1fe1ab3addfcea63f6454548238033c6a91fa610e4e)
+## 参与贡献
 
-- 博客: [blog.php127.com](http://blog.php127.com)
+1. fork 当前库到你的名下
+2. 在你的本地修改完成审阅过后提交到你的仓库
+3. 提交 PR 并描述你的修改，等待合并
 
-- 更多开源项目: [github.com/aa24615](https://github.com/aa24615)
+## License
+
+[MIT license](https://opensource.org/licenses/MIT)
+
 
